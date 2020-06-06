@@ -36,6 +36,18 @@ namespace KnowWeatherAPI.Controllers
             .ToArray();
         }
 
-       
+        [HttpGet("{id}" , Name="Get()")]
+        public IEnumerable<WeatherForecast> Get(string id)
+        {
+            var rng = new Random();
+            return Enumerable.Range(1, 10).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)]
+            }) .Where(s => s.Summary== id)
+            .ToArray();
+        }
+
     }
 }
